@@ -18,4 +18,12 @@ Das in der Studie verwendete Dictionary ist das [RPC-Lex](https://osf.io/s48cj/)
 
 ## Anleitung
 
-1. Zunächst 
+1. Zunächst sollten im Setup (setup_yt_channel_transcripts.py) die Google Developer Key (API-Key ist auf Google Cloud zu finden), sowie sämtliche Zielverzeichnisse für Transkripte, CSV-Tabellen, Pfade zum Dictionary (unter dem obigen Link herunterzuladen) und die Liste der gewünschten Kanal-IDs eingetragen werden. Die Kanal-IDs lassen sich unter den Kanaldetails -> Kanal teilen -> Kanal-ID kopieren finden.
+2. Der Webcrawler (yt_crawler_channel_transcripts.py) prüft den Kanal auf Videos mit vorhandenen deutschen Untertiteln und speichert diese in einem ausgwählten Zielverzeichnis (kanal_zielverzeichnis) im txt-Format. Anschließend wird ein Übersichtsbericht "transcripts_overview.csv" in das CSV-Zielverzeichnis gespeichert.
+3. In "wordlist.py" wird eine vollständige Wortliste für die jeweiligen Kanäle erzeugt und in "wordlist.csv" gespeichert.
+4. In "rpc_wordlist.py" wird die Wortliste mithilfe des RPC-Lex auf die Grundwortfrequenzen und die Kategorie-Codes des Dictionaries ergänzt und in der "updated_wordlist.csv" gespeichert.
+5. In "clean_wordlist.py" wird überprüft, inwieweit die Liste gültige Werte bezüglich der Grundwortfrequenzen der Wörter enthält und es werden alle Missings, sowie alle Wörter mit Grundwortfrequenz über 100.000 aus der Wordliste entfernt. Das Ergebnis wird in die Datei "wordlist_cleaned.csv" gespeichert.
+6. In "rpc_percentage.py" wird schließlich die Verteilung der Inhalte (nach Category Codes) unter Berücksichtigung der Gewichtung in kulminierten Prozentwerten berechnet und in "ergebnisse_prozent.csv" gespeichert.
+7. Der Launcher (rpc_lex_launcher.py) führt letztlich die "streamlit.py" aus und zeigt die erechnete Verteilung der Inhalte in Balkendiagrammen für jeden Kanal und liefert auch einige allgemeine Zahlen aus der "transcripts_overview.csv" mit.
+8. "Sutbitle.py" ist ein schlichter Webcrawler um die Transkripte einzelner Videos zu erhalten. "pd_dataview.py" lässt sich nutzen, um sich die zwischenergebnisse in Pandas Dataview anzusehen.
+9. Innerhalb der Projektmappe lassen sich alte Ergebnisse zur Überprüfung der Ergebnisse finden.
